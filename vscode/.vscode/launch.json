@@ -1,0 +1,53 @@
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Load Automations Then Run",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "/workspaces/Projects/Build/bin/Debug/net7.0/ArcticFox_TemperatureAnomaly_Tutorial.dll",
+            "args": [],
+            "cwd": "/workspaces/Projects/Build/",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Clean",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "/workspaces/Projects/Build/bin/Debug/net7.0/ArcticFox_TemperatureAnomaly_Tutorial.dll",
+            "args": ["-clean"],
+            "cwd": "/workspaces/Projects/Build/",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Run Only",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "/workspaces/Projects/Build/bin/Debug/net7.0/ArcticFox_TemperatureAnomaly_Tutorial.dll",
+            "args": [],
+            "cwd": "/workspaces/Projects/Build/",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Run Commands",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildCommandRun",
+            "program": "/workspaces/Projects/RunCommands/bin/Debug/net7.0/ArcticFox_TemperatureAnomaly_Tutorial.dll",
+            "args": [],
+            "cwd": "/workspaces/Projects/Build/",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "stopAtEntry": false
+        }
+    ]
+}
