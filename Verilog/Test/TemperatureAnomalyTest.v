@@ -3,9 +3,12 @@ module TemperatureAnomalyTest;
 
 //9) Instantiate the TemperatureAnomaly module to test using the
 //   TestModule automation.
+/*[TestModule --module TemperatureAnomaly]*/
 
 
 task SendSerialTemperature;
+
+
 input [15:0] temperature;
     integer i;
 

@@ -55,17 +55,16 @@ reg [15:0] sclCounter;
 //1) Now, we need to keep the previous n accepted temperature values so we can
 //   calculate the average. Lets create a Value for the number of temperatures to track.
 //   Let's start by using 16 for the Value
-/*[$TemperaturesToTrack ???]*/
+/*[$TemperaturesToTrack 16]*/
 
 //2) Next, lets create the registers to hold the last n temperatures
 //   Let's use the following reg, temperatureHistory, except we need $TemperaturesToTrack
 //   of them. We recommend using the Expand automation
-reg [15:0] temperatureHistory;
+/*[Expand --count $TemperaturesToTrack]*/ reg [15:0] temperatureHistory;
 
 //3) Then, similar to the SerialShifter, we need to shift new temperatures values through
-//   the regs we made. We recommend using the VariableShifter automation. You'll likely
-//   want to set the dataBase to temperatureHistory, incoming to receivedTemperature, 
-//   coutn to the Value for temperatures to track, and risingAccept to acceptTemperature
+//   the regs we made. We recommend using the VariableShifter automation
+/*[VariableShifter --dataBase temperatureHistory --incoming receivedTemperature --count $TemperaturesToTrack --risingAccept acceptTemperature]*/
 
 
 
@@ -78,7 +77,8 @@ reg [15:0] temperatureHistory;
 
 //4) Lets sum up all of the temperatureHistory regs. We recommend using the Sum
 //   automation. Please note, the Sum automation is a non optimal way to add these
-//   regs, due to the amount, but it's easy to use for the tutorial
+//   regs, due to the amount, but it's easy to use for this tutorial
+/*[Sum --base temperatureHistory --count $TemperaturesToTrack]*/
 wire [31:0] temperatureSum;
 
 //Now, let's right shift the sum to divide it and get the average
@@ -110,26 +110,26 @@ assign eigthOfAverageTemperature = averageTemperature >> 3;
 //   the upperTemperatureBound reg.
 reg [15:0] upperTemperatureBound;
 //5a) Use an always automation
-/*[???]*/ begin
+/*[always upperTemperatureBound]*/ begin
     //5b) A Reset automation
-    /*[???]*/
+    /*[Reset]*/
         //5c) Non blocking automation to set upperTemperatureBound to 0
-        /*[??? 0]*/
+        /*[<= 0]*/
     else
         //5d) Another non blocking automation to set
         //    upperTemperatureBound to averageTemperature + eigthOfAverageTemperature
-        /*[??? averageTemperature + eigthOfAverageTemperature]*/
+        /*[<= averageTemperature + eigthOfAverageTemperature]*/
 end
 
 //6) Now, do the same for the lowerTemperatureBounce. It should be the same
 //   as the upperTemperatureBound, but you want to subtract eigthOfAverageTemperature.
 //   Also, you will need to create the always automation/block without guidance here.
 reg [15:0] lowerTemperatureBound;
-/*[???]*/ begin
-    /*[???]*/
-        /*[???]*/
+/*[always lowerTemperatureBound]*/ begin
+    /*[Reset]*/
+        /*[<= 0]*/
     else
-        /*[???]*/
+        /*[<= averageTemperature - eigthOfAverageTemperature]*/
 end
 
 
@@ -141,6 +141,7 @@ end
 //   You will want it to have no maximum, and the --event should be that
 //   of when a new temperature reading is received. We will use the
 //   counter to accept any temperature until the temperatureHistory is full.
+/*[Counter --event $temperatureReceived --noMax]*/
 reg[7:0] temperaturesReceived;
 
 //Here is the logic that determine whether or not to accept a temperature value.
@@ -172,18 +173,24 @@ assign acceptTemperature =
 /*[always temperatureReady]*/ begin
     /*[Reset]*/
         //Set to 0
+        /*[<= 0]*/
     else if(acceptTemperature)
         //Set to 1
+        /*[<= 1]*/
     else
         //Set to 0
+        /*[<= 0]*/
 end
 
 /*[always temperature]*/ begin
     /*[Reset]*/
         //Set to 0
+        /*[<= 0]*/
     else if(acceptTemperature)
         //Set to receivedTemperature
+        /*[<= receivedTemperature]*/
     else
         //Hold value
+        /*[<=]*/
 end
 endmodule
