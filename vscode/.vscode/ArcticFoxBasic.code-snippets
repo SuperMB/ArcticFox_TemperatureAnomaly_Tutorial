@@ -1,0 +1,763 @@
+{
+"always": {
+    "scope": "verilog",
+    "prefix": ["[always]"],
+    "body": [
+        "[always${1|\u200B, string:name, --name string:variableName|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"NonBlocking": {
+    "scope": "verilog",
+    "prefix": ["[NonBlocking]"],
+    "body": [
+        "[NonBlocking"
+    ],
+    "description": [
+        ""
+    ]
+},
+"shortcut: NonBlocking": {
+    "scope": "verilog",
+    "prefix": ["[<]"],
+    "body": [
+        "[<"
+    ],
+    "description": [
+        ""
+    ]
+},
+"This": {
+    "scope": "verilog",
+    "prefix": ["[This]"],
+    "body": [
+        "[This${1|\u200B, string:bracketString|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"shortcut: This": {
+    "scope": "verilog",
+    "prefix": ["[this]"],
+    "body": [
+        "[this${1|\u200B, string:bracketString|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"sets a value, @module": {
+    "scope": "verilog",
+    "prefix": ["[SetValue]"],
+    "body": [
+        "[SetValue${1|\u200B, string:name, --name string:initialItemString|}${2|\u200B, string:value, --value string:value|}"
+    ],
+    "description": [
+        "Sets a value which can be used by other automations and automation processing"
+    ]
+},
+"shortcut: SetValue": {
+    "scope": "verilog",
+    "prefix": ["[$]"],
+    "body": [
+        "[$${1|\u200B, string:name, --name string:initialItemString|}${2|\u200B, string:value, --value string:value|}"
+    ],
+    "description": [
+        "Sets a value which can be used by other automations and automation processing"
+    ]
+},
+"identifies clock, @input": {
+    "scope": "verilog",
+    "prefix": ["[Clock]"],
+    "body": [
+        "[Clock${1|\u200B, string:firstItem|}${2|\u200B, string:secondItem|}"
+    ],
+    "description": [
+        "Identifies which incoming signals are clocks and specifies the clock frequency"
+    ]
+},
+"clocks in always, @module": {
+    "scope": "verilog",
+    "prefix": ["[InferClocks]"],
+    "body": [
+        "[InferClocks"
+    ],
+    "description": [
+        "Will add clock names to always blocks based on the identified clock signals"
+    ]
+},
+"identifies reset, @input": {
+    "scope": "verilog",
+    "prefix": ["[Reset]"],
+    "body": [
+        "[Reset${1|\u200B, int:count, --count int:resetCount|}"
+    ],
+    "description": [
+        "Identifies which input should be treated as the reset signal"
+    ]
+},
+"specify command name/number, @none": {
+    "scope": "verilog",
+    "prefix": ["[Command]"],
+    "body": [
+        "[Command${1|\u200B, string:name, --name string:name|}${2|\u200B, int:number, --number int:value|}"
+    ],
+    "description": [
+        "Adds the given command name to the set of commands. Optional to include a number. Useful when wanting to use a command not specified by a CommandReg, etc."
+    ]
+},
+"interprets commands, @module": {
+    "scope": "verilog",
+    "prefix": ["[CommandModule]"],
+    "body": [
+        "[CommandModule${1|\u200B, int:commandWidth, --commandWidth int:commandWidth|}${2|\u200B, int:processCounterWidth, --processCounterWidth int:processCounterWidth|}${3|\u200B, string:commandName, --commandName string:commandName|}${4|\u200B, string:transmittingName, --transmittingName string:transmittingName|}${5|\u200B, --uart string:uartGroupName|}"
+    ],
+    "description": [
+        "Attach to module. Will generate code in the attached module to implement command interpretation."
+    ]
+},
+"1 clock command, @reg": {
+    "scope": "verilog",
+    "prefix": ["[CommandPulseReg]"],
+    "body": [
+        "[CommandPulseReg${1|\u200B, string:command, --command string:command|}${2|\u200B, int:commandNumber, --commandNumber int:commandNumber|}${3|\u200B, --commandName string:command|}"
+    ],
+    "description": [
+        "When the command is sent, the reg will be set high for one clock cycle"
+    ]
+},
+"sends in test, @module": {
+    "scope": "verilog",
+    "prefix": ["[SendCommand]"],
+    "body": [
+        "[SendCommand${1|\u200B, string:uartGroup, --uartGroup string:uartGroup|}${2|\u200B, string:number, --number string:commandName|}"
+    ],
+    "description": [
+        "Sends a command over an interface in a test bench, can specify a value"
+    ]
+},
+"sets from command, @reg": {
+    "scope": "verilog",
+    "prefix": ["[UartRegOld]"],
+    "body": [
+        "[UartRegOld${1|\u200B, string:command, --command string:command|}${2|\u200B, int:position, --position int:position|}${3|\u200B, string:reset, --reset string:resetValue|}${4|\u200B, int:commandNumber, --commandNumber int:commandNumber|}${5|\u200B, --readCommand string:readCommand|}${6|\u200B, --writeCommand string:writeCommand|}"
+    ],
+    "description": [
+        "When the command is sent, the reg will take the value sent with the command"
+    ]
+},
+"current environment, @none": {
+    "scope": "verilog",
+    "prefix": ["[Environments]"],
+    "body": [
+        "[Environments"
+    ],
+    "description": [
+        "Specifies the current environment, can be set to Simulation, FPGATesting, or Production"
+    ]
+},
+"available interfaces, @none": {
+    "scope": "verilog",
+    "prefix": ["[Interfaces]"],
+    "body": [
+        "[Interfaces"
+    ],
+    "description": [
+        "Specifies what interfaces are available for the current design"
+    ]
+},
+"StateMachine": {
+    "scope": "verilog",
+    "prefix": ["[StateMachine]"],
+    "body": [
+        "[StateMachine${1: stateSignal}\n${2|// stateName: condition => transitionToState|}${3|\u200B,\n// stateName: condition => transitionToState|}${4|\u200B,\n// stateName: condition => transitionToState|}\n//"
+    ],
+    "description": [
+        ""
+    ]
+},
+"basic counter, @reg": {
+    "scope": "verilog",
+    "prefix": ["[Counter]"],
+    "body": [
+        "[Counter${1|\u200B, string:count, --count string:countTo|}${2|\u200B, string:start, --start string:startSignal|}${3|\u200B, string:done, --done string:doneSignal|}${4|\u200B, string:event, --event string:countEvent|}"
+    ],
+    "description": [
+        "Creates a counter that counts to a certain constant or variable when start is received, produces done when finished"
+    ]
+},
+"Timer": {
+    "scope": "verilog",
+    "prefix": ["[Timer]"],
+    "body": [
+        "[Timer${1|\u200B, string:start, --start string:startString|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"Axi4LiteSlave": {
+    "scope": "verilog",
+    "prefix": ["[Axi4LiteSlave]"],
+    "body": [
+        "[Axi4LiteSlave"
+    ],
+    "description": [
+        ""
+    ]
+},
+"AxiPulse": {
+    "scope": "verilog",
+    "prefix": ["[AxiPulse]"],
+    "body": [
+        "[AxiPulse"
+    ],
+    "description": [
+        ""
+    ]
+},
+"AxiReg": {
+    "scope": "verilog",
+    "prefix": ["[AxiReg]"],
+    "body": [
+        "[AxiReg"
+    ],
+    "description": [
+        ""
+    ]
+},
+"BasicAxiReadWrite": {
+    "scope": "verilog",
+    "prefix": ["[BasicAxiReadWrite]"],
+    "body": [
+        "[BasicAxiReadWrite"
+    ],
+    "description": [
+        ""
+    ]
+},
+"External": {
+    "scope": "verilog",
+    "prefix": ["[External]"],
+    "body": [
+        "[External"
+    ],
+    "description": [
+        ""
+    ]
+},
+"ExternalConnection": {
+    "scope": "verilog",
+    "prefix": ["[ExternalConnection]"],
+    "body": [
+        "[ExternalConnection${1|\u200B, --baudrate int:baudrate|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"Interrupt": {
+    "scope": "verilog",
+    "prefix": ["[Interrupt]"],
+    "body": [
+        "[Interrupt"
+    ],
+    "description": [
+        ""
+    ]
+},
+"Block": {
+    "scope": "verilog",
+    "prefix": ["[Block]"],
+    "body": [
+        "[Block${1|\u200B, string:block, --block string:blockName|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"End": {
+    "scope": "verilog",
+    "prefix": ["[End]"],
+    "body": [
+        "[End${1|\u200B, string:block, --block string:endBlock|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"Inherit": {
+    "scope": "verilog",
+    "prefix": ["[Inherit]"],
+    "body": [
+        "[Inherit${1|\u200B, string:module, --module string:moduleName|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"Calculate": {
+    "scope": "verilog",
+    "prefix": ["[Calculate]"],
+    "body": [
+        "[Calculate"
+    ],
+    "description": [
+        ""
+    ]
+},
+"Sum": {
+    "scope": "verilog",
+    "prefix": ["[Sum]"],
+    "body": [
+        "[Sum${1|\u200B, string:base, --base string:signalBase|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"DualMemory": {
+    "scope": "verilog",
+    "prefix": ["[DualMemory]"],
+    "body": [
+        "[DualMemory${1|\u200B, string:name, --name string:name|}${2|\u200B, int:addressWidth, --addressWidth int:addressWidth|}${3|\u200B, int:dataWidth, --dataWidth int:dataWidth|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"DualMemoryInterface": {
+    "scope": "verilog",
+    "prefix": ["[DualMemoryInterface]"],
+    "body": [
+        "[DualMemoryInterface${1|\u200B, string:name, --name string:name|}${2|\u200B, int:addressWidth, --addressWidth int:addressWidth|}${3|\u200B, int:dataWidth, --dataWidth int:dataWidth|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"Memory": {
+    "scope": "verilog",
+    "prefix": ["[Memory]"],
+    "body": [
+        "[Memory${1|\u200B, string:name|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"MemoryBlock": {
+    "scope": "verilog",
+    "prefix": ["[MemoryBlock]"],
+    "body": [
+        "[MemoryBlock${1|\u200B, string:currentName|}${2|\u200B, string:currentSuffix|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"shortcut: MemoryBlock": {
+    "scope": "verilog",
+    "prefix": ["[always.memory]"],
+    "body": [
+        "[always.memory${1|\u200B, string:currentName|}${2|\u200B, string:currentSuffix|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"MemoryInterface": {
+    "scope": "verilog",
+    "prefix": ["[MemoryInterface]"],
+    "body": [
+        "[MemoryInterface${1|\u200B, string:name|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"MemorySet": {
+    "scope": "verilog",
+    "prefix": ["[MemorySet]"],
+    "body": [
+        "[MemorySet${1|\u200B, 0, readAddress, address => dataInValue, hold, holdAddress, holdValue|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"shortcut: MemorySet": {
+    "scope": "verilog",
+    "prefix": ["[<]"],
+    "body": [
+        "[<${1|\u200B, 0, readAddress, address => dataInValue, hold, holdAddress, holdValue|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"adds globals, @module": {
+    "scope": "verilog",
+    "prefix": ["[AddGlobalParameters]"],
+    "body": [
+        "[AddGlobalParameters"
+    ],
+    "description": [
+        "Adds all parameters attached with a GlobalParameter automation to the end of the module"
+    ]
+},
+"add to global, @parameter": {
+    "scope": "verilog",
+    "prefix": ["[GlobalParameter]"],
+    "body": [
+        "[GlobalParameter"
+    ],
+    "description": [
+        "Adds the attached parameter to the list of global parameters that can be included anywhere"
+    ]
+},
+"shortcut: GlobalParameter": {
+    "scope": "verilog",
+    "prefix": ["[Global]"],
+    "body": [
+        "[Global"
+    ],
+    "description": [
+        "Adds the attached parameter to the list of global parameters that can be included anywhere"
+    ]
+},
+"sets parameter, @parameter": {
+    "scope": "verilog",
+    "prefix": ["[SetParameter]"],
+    "body": [
+        "[SetParameter${1|\u200B, string:value, --value string:value|}"
+    ],
+    "description": [
+        "Sets the value of a parameter, can be a constant, value, or locate a value with the same name"
+    ]
+},
+"shortcut: SetParameter": {
+    "scope": "verilog",
+    "prefix": ["[Set]"],
+    "body": [
+        "[Set${1|\u200B, string:value, --value string:value|}"
+    ],
+    "description": [
+        "Sets the value of a parameter, can be a constant, value, or locate a value with the same name"
+    ]
+},
+"Check": {
+    "scope": "verilog",
+    "prefix": ["[Check]"],
+    "body": [
+        "[Check"
+    ],
+    "description": [
+        ""
+    ]
+},
+"NormalChecks": {
+    "scope": "verilog",
+    "prefix": ["[NormalChecks]"],
+    "body": [
+        "[NormalChecks"
+    ],
+    "description": [
+        ""
+    ]
+},
+"PrintPrimaryClock": {
+    "scope": "verilog",
+    "prefix": ["[PrintPrimaryClock]"],
+    "body": [
+        "[PrintPrimaryClock"
+    ],
+    "description": [
+        ""
+    ]
+},
+"PrintReset": {
+    "scope": "verilog",
+    "prefix": ["[PrintReset]"],
+    "body": [
+        "[PrintReset"
+    ],
+    "description": [
+        ""
+    ]
+},
+"top level module, @module": {
+    "scope": "verilog",
+    "prefix": ["[TopLevel]"],
+    "body": [
+        "[TopLevel"
+    ],
+    "description": [
+        "Identifies which module should be treated as the top level module of the design, needed for routing"
+    ]
+},
+"to all modules, @module": {
+    "scope": "verilog",
+    "prefix": ["[AddToAll]"],
+    "body": [
+        "[AddToAll"
+    ],
+    "description": [
+        "Attaches specifed automation to all modules, including the current one"
+    ]
+},
+"to other modules, @module": {
+    "scope": "verilog",
+    "prefix": ["[AddToAllExceptThis]"],
+    "body": [
+        "[AddToAllExceptThis${1|\u200B, string:automation|}"
+    ],
+    "description": [
+        "Attaches specifed automation to all modules except the current one"
+    ]
+},
+"route everywhere, @input, module": {
+    "scope": "verilog",
+    "prefix": ["[Common]"],
+    "body": [
+        "[Common"
+    ],
+    "description": [
+        "Attach to an input and the input will be routed to all modules that have had be attached with Common"
+    ]
+},
+"auto routes, @wire": {
+    "scope": "verilog",
+    "prefix": ["[Import]"],
+    "body": [
+        "[Import${1|\u200B, sourceModule, ascending, descending, localize, -ceiling ceilingModule|}"
+    ],
+    "description": [
+        "Shortcut is '.', specify the source module and optionally the source signal name"
+    ]
+},
+"shortcut: Import": {
+    "scope": "verilog",
+    "prefix": ["[.]"],
+    "body": [
+        "[.${1|\u200B, sourceModule, ascending, descending, localize, -ceiling ceilingModule|}"
+    ],
+    "description": [
+        "Shortcut is '.', specify the source module and optionally the source signal name"
+    ]
+},
+"adds property, @inst. module": {
+    "scope": "verilog",
+    "prefix": ["[Property]"],
+    "body": [
+        "[Property${1|\u200B, string:name, --name string:name|}${2|\u200B, string:value, --value string:value|}"
+    ],
+    "description": [
+        "Adds a property to the instantiated module, can be used for automations such as auto routing"
+    ]
+},
+"SerialShifter": {
+    "scope": "verilog",
+    "prefix": ["[SerialShifter]"],
+    "body": [
+        "[SerialShifter${1|\u200B, int:width, --width int:width|}${2|\u200B, string:risingAccept, --risingAccept string:risingAccept|}${3|\u200B, string:data, --data string:data|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"creates branch tree, @variable": {
+    "scope": "verilog",
+    "prefix": ["[Branch]"],
+    "body": [
+        "[Branch${1|\u200B, int:count, --count int:branchCount|}"
+    ],
+    "description": [
+        "Creates n regs that take on the value of a signal one clock cycle later"
+    ]
+},
+"Expand": {
+    "scope": "verilog",
+    "prefix": ["[Expand]"],
+    "body": [
+        "[Expand${1|\u200B, int:count, --count int:count|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"copies signals, @variable": {
+    "scope": "verilog",
+    "prefix": ["[Replicate]"],
+    "body": [
+        "[Replicate${1|\u200B, string:source, --source string:source|}${2|\u200B, int:count, --count int:count|}"
+    ],
+    "description": [
+        "Sets a signals to a concatenated, replicated version of the source"
+    ]
+},
+"splits signal, @variable": {
+    "scope": "verilog",
+    "prefix": ["[SplitInto]"],
+    "body": [
+        "[SplitInto"
+    ],
+    "description": [
+        "Splits the attached signal into a collection of other signals"
+    ]
+},
+"VariableShifter": {
+    "scope": "verilog",
+    "prefix": ["[VariableShifter]"],
+    "body": [
+        "[VariableShifter${1|\u200B, string:dataBase, --dataBase string:dataBase|}${2|\u200B, string:incoming, --incoming string:incoming|}${3|\u200B, int:count, --count int:count|}${4|\u200B, string:risingAccept, --risingAccept string:risingAccept|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"detects falling edge, @wire": {
+    "scope": "verilog",
+    "prefix": ["[FallingEdge]"],
+    "body": [
+        "[FallingEdge${1|\u200B, string:signal, --signal string:source|}"
+    ],
+    "description": [
+        "Sets the following wire to be the falling edge of the source signal"
+    ]
+},
+"tracks previous, @reg": {
+    "scope": "verilog",
+    "prefix": ["[Previous]"],
+    "body": [
+        "[Previous${1|\u200B, string:signal, --signal string:signalToFollow|}"
+    ],
+    "description": [
+        "Sets the attached reg to another signal, but delayed by one clock cycle"
+    ]
+},
+"detects rising edge, @wire": {
+    "scope": "verilog",
+    "prefix": ["[RisingEdge]"],
+    "body": [
+        "[RisingEdge${1|\u200B, string:signal, --signal string:source|}"
+    ],
+    "description": [
+        "Sets the following wire to be the rising edge of the source signal"
+    ]
+},
+"StaticAnalysis": {
+    "scope": "verilog",
+    "prefix": ["[StaticAnalysis]"],
+    "body": [
+        "[StaticAnalysis"
+    ],
+    "description": [
+        ""
+    ]
+},
+"detects situation, @none": {
+    "scope": "verilog",
+    "prefix": ["[Assert]"],
+    "body": [
+        "[Assert"
+    ],
+    "description": [
+        "Actively detects a given condition when Environment is set to Simulation"
+    ]
+},
+"InitialValue": {
+    "scope": "verilog",
+    "prefix": ["[InitialValue]"],
+    "body": [
+        "[InitialValue${1|\u200B, int:value, --value int:initialValue|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"ResetTime": {
+    "scope": "verilog",
+    "prefix": ["[ResetTime]"],
+    "body": [
+        "[ResetTime${1|\u200B, string:time, --time string:time|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"adds modules to test, @module": {
+    "scope": "verilog",
+    "prefix": ["[TestModule]"],
+    "body": [
+        "[TestModule${1|\u200B, module, --module module|}"
+    ],
+    "description": [
+        "Instantiates a module in a test bench and generates incoming and outgoing signals"
+    ]
+},
+"AddVariableDelay": {
+    "scope": "verilog",
+    "prefix": ["[AddVariableDelay]"],
+    "body": [
+        "[AddVariableDelay${1|\u200B, string:signal, --signal string:signal|}${2|\u200B, int:addDelay, --addDelay int:addDelay|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"delays signals, @wire": {
+    "scope": "verilog",
+    "prefix": ["[Delay]"],
+    "body": [
+        "[Delay${1|\u200B, string:name, --name string:netName|}${2|\u200B, int:delay, --delay int:delay|}"
+    ],
+    "description": [
+        "Delays a given signal by n clock cycles"
+    ]
+},
+"reduces fanout, @variable": {
+    "scope": "verilog",
+    "prefix": ["[Fanout]"],
+    "body": [
+        "[Fanout${1|\u200B, int:fanout, --fanout int:fanoutCount|}${2|\u200B, int:height, --height int:treeHeight|}"
+    ],
+    "description": [
+        "Creates a banching tree to reduce the fanout of a single signal"
+    ]
+},
+"VariableDelay": {
+    "scope": "verilog",
+    "prefix": ["[VariableDelay]"],
+    "body": [
+        "[VariableDelay${1|\u200B, string:event, --event string:event|}"
+    ],
+    "description": [
+        ""
+    ]
+},
+"creates UART interface, @multiple": {
+    "scope": "verilog",
+    "prefix": ["[UartSlaveOld]"],
+    "body": [
+        "[UartSlaveOld${1|\u200B, string:group, --group string:uartGroupName|}${2|\u200B, string:secondItem|}${3|\u200B, --baudrate baudrate|}"
+    ],
+    "description": [
+        "Attach to RX, TX, output register, and UART module."
+    ]
+},
+"test uart command, @none": {
+    "scope": "verilog",
+    "prefix": ["[UartTest]"],
+    "body": [
+        "[UartTest${1|\u200B, string:uartGroup, --uartGroup string:uartGroupName|}${2|\u200B, string:testModule, --testModule string:testModule|}"
+    ],
+    "description": [
+        "Sends the bytes for a command over UART in a test bench"
+    ]
+},
+
+}
